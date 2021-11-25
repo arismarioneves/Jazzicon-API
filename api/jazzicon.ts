@@ -3,13 +3,13 @@ import jazzicon from "./data/jazzicon";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
 	try {
-		const address = req.query.address as string;
+		const id = req.query.id as string;
 		
-		if (typeof address === "undefined") {
+		if (typeof id === "undefined") {
 			throw new Error("Param 'ID' is required");
 		}
 		
-		const seed = parseInt(address.slice(2, 10), 16);
+		const seed = parseInt(id.slice(2, 10), 16);
 		
 		const identicon = jazzicon(100, seed);
 		
