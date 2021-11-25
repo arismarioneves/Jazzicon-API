@@ -8,8 +8,9 @@ API Jazzicon for create Avatar
 
 Required Params: id
 
+GET:
 ```bash
-GET https://jazzicon-api.vercel.app/api/jazzicon?id=012345
+https://jazzicon-api.vercel.app/api/jazzicon?id=012345
 ```
 
 Response
