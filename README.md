@@ -10,8 +10,7 @@ Required Params: id
 
 ```bash
 GET https://jazzicon-api.vercel.app/api/jazzicon?id=012345
-
-# Response
-
-image/svg+xml
 ```
+
+Response
+image/svg+xml
