@@ -6,11 +6,11 @@ API Jazzicon for create Avatar
 
 ### GET Jazzicon
 
-Required Params: id
+Required Params: id (max 10 digits)
 
 GET:
 ```bash
-https://jazzicon-api.vercel.app/api/jazzicon?id=012345
+https://jazzicon-api.vercel.app/api/jazzicon?id=0123456789
 ```
 
 Response
