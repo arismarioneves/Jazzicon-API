@@ -1,9 +1,10 @@
 {
   "name": "jazzicon-api",
   "version": "1.0",
-  "license": "",
+  "license": "MIT",
   "author": "@arismarioneves <mariodev@outlook.com.br>",
   "dependencies": {
+    "@vercel/analytics": "^1.0.2",
     "bignumber.js": "^9.0.0",
     "mersenne-twister": "^1.1.0"
   },
