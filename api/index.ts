@@ -1,10 +1,6 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { track } from '@vercel/analytics/server';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-    // Track analytics event for home page visit
-    await track('home_page_visited');
-
     const text = `
 JAZZICON API
 
@@ -26,6 +22,9 @@ ERRORS:
   500 - Server error
     `;
 
+    // Set headers for proper content type and caching
     res.setHeader('Content-Type', 'text/plain');
+    res.setHeader('Cache-Control', 'public, max-age=3600');
+    
     res.status(200).send(text.trim());
 }
