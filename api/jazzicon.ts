@@ -24,7 +24,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         console.error(error);
 
         res.status(500).json({
-            error: error.message,
+            error: error instanceof Error ? error.message : 'Internal server error',
         });
     }
 }

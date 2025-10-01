@@ -1,0 +1,32 @@
+{
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "@vercel/node@3.0.31"
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/jazzicon",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=86400"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, OPTIONS"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/api/index"
+    }
+  ]
+}
