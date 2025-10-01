@@ -1,9 +1,10 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { inject } from '@vercel/analytics';
-
-inject();
+import { track } from '@vercel/analytics/server';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+    // Track analytics event for home page visit
+    await track('home_page_visited');
+
     const text = `
 JAZZICON API
 
