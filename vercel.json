@@ -28,8 +28,5 @@
       "source": "/",
       "destination": "/api/index"
     }
-  ],
-  "analytics": {
-    "enable": true
-  }
+  ]
 }
