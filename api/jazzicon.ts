@@ -1,15 +1,27 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
+import { track } from '@vercel/analytics/server';
 import jazzicon from './data/jazzicon';
+
+function hashId(id: string): number {
+    let hash = 0;
+    for (let i = 0; i < id.length; i++) {
+        hash = Math.imul(31, hash) + id.charCodeAt(i) | 0;
+    }
+    return Math.abs(hash);
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     try {
         const id = req.query.id as string;
 
-        if (typeof id === 'undefined') {
-            throw new Error("Param 'ID' is required");
+        if (!id) {
+            res.status(400).json({ error: "Missing required parameter 'id'" });
+            return;
         }
 
-        const seed = parseInt(id.slice(2, 10), 16);
+        await track('jazzicon-generated', { id: id.slice(0, 10) });
+
+        const seed = hashId(id);
 
         const identicon = jazzicon(100, seed);
 

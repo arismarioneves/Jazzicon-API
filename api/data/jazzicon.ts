@@ -16,29 +16,23 @@ const COLORS: readonly string[] = [
     '#F19E02', // gold
 ];
 
-let generator: MersenneTwister;
-
 export default function jazzicon(diameter: number, seed: number | number[] | undefined) {
-    generator = new MersenneTwister(seed);
+    const generator = new MersenneTwister(seed);
 
     const remainingColors = hueShift(COLORS.slice(), generator);
 
-    const background = genColor(remainingColors);
+    const background = genColor(remainingColors, generator);
 
-    let shapes: string[] = [];
+    const shapes: string[] = [];
 
-    for (var i = 0; i < SHAPE_COUNT - 1; i++) {
-        shapes = [...shapes, genShape(remainingColors, diameter, i, SHAPE_COUNT - 1)];
+    for (let i = 0; i < SHAPE_COUNT - 1; i++) {
+        shapes.push(genShape(remainingColors, diameter, i, SHAPE_COUNT - 1, generator));
     }
 
-    return `
-    <svg xmlns="http://www.w3.org/2000/svg" x="0" y="0" width="${diameter}px" height="${diameter}px" viewBox="0 0 ${diameter} ${diameter}">
-    <rect width="100%" height="100%" fill="${background}"/>
-    ${shapes.join('')}
-    </svg>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" x="0" y="0" width="${diameter}" height="${diameter}" viewBox="0 0 ${diameter} ${diameter}"><rect width="100%" height="100%" fill="${background}"/>${shapes.join('')}</svg>`;
 }
 
-function genShape(remainingColors: string[], diameter: number, i: number, total: number) {
+function genShape(remainingColors: string[], diameter: number, i: number, total: number, generator: MersenneTwister) {
     const center = diameter / 2;
 
     const firstRot = generator.random();
@@ -61,12 +55,12 @@ function genShape(remainingColors: string[], diameter: number, i: number, total:
 
     const transform = translate + ' ' + rotate;
 
-    const fill = genColor(remainingColors);
+    const fill = genColor(remainingColors, generator);
 
-    return `<rect x="0" y="0" width="${diameter}" height="${diameter}" transform="${transform}" fill="${fill}" />`;
+    return `<rect x="0" y="0" width="${diameter}" height="${diameter}" transform="${transform}" fill="${fill}"/>`;
 }
 
-function genColor(colors: string[]) {
+function genColor(colors: string[], generator: MersenneTwister) {
     generator.random();
 
     const idx = Math.floor(colors.length * generator.random());

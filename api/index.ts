@@ -5,13 +5,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 JAZZICON API
 
 ENDPOINT:
-  GET /api/jazzicon?id={PERSONAL_ID}
+  GET /api/jazzicon?id={ID}
 
 PARAMETERS:
-  id (required) - Personal ID (0-9)
+  id (required) - Any string (username, user ID, email, etc.)
 
 EXAMPLE:
-  curl "/api/jazzicon?id=1234567890"
+  curl "/api/jazzicon?id=johndoe"
 
 RESPONSE:
   Content-Type: image/svg+xml
@@ -25,6 +25,6 @@ ERRORS:
     // Set headers for proper content type and caching
     res.setHeader('Content-Type', 'text/plain');
     res.setHeader('Cache-Control', 'public, max-age=3600');
-    
+
     res.status(200).send(text.trim());
 }
