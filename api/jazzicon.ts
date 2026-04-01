@@ -1,5 +1,4 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { track } from '@vercel/analytics/server';
 import jazzicon from './data/jazzicon';
 
 function hashId(id: string): number {
@@ -19,7 +18,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             return;
         }
 
-        await track('jazzicon-generated', { id: id.slice(0, 10) });
+        import('@vercel/analytics/server')
+            .then(({ track }) => track('jazzicon-generated', { id: id.slice(0, 10) }))
+            .catch(() => {});
 
         const seed = hashId(id);
 
